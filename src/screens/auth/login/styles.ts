@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   imgStyle: {
     width: ScaleWidth("80%"),
     height: ScaleHeight("60%"),
+    alignSelf: "center",
   },
 });
 

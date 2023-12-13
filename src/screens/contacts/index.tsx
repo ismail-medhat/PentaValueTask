@@ -47,6 +47,9 @@ const ContactsScreen: React.FC = () => {
       );
       console.log("contactsFilter :: ", contactsFilter);
       setFilterContacts(contactsFilter);
+      setSelectedContacts([]);
+    } else {
+      setSelectedContacts([]);
     }
   }, [searchKey]);
 
