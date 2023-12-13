@@ -6,12 +6,9 @@ import { ContactsScreen, FavoriteContacts } from "../screens";
 import ScreenNames from "./ScreenNames";
 import { StyleSheet, View, Text, Platform } from "react-native";
 import { Colors, ScaleHeight, ScaleWidth } from "common";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ParamListBase } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import useToast from "../hooks/useToast";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,19 +17,6 @@ type ISBottomTabsProps = {
 };
 
 const BottomTabNavigator: React.FC<ISBottomTabsProps> = ({ navigation }) => {
-  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
-  const { showErrorToast } = useToast();
-
-  const checkUserIsLoggedIn = () => ({
-    tabPress: (e: { preventDefault: () => void }) => {
-      if (!isLoggedIn) {
-        e.preventDefault();
-        showErrorToast("You Must Logged In !");
-        navigation.navigate(ScreenNames.Login);
-      }
-    },
-  });
-
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

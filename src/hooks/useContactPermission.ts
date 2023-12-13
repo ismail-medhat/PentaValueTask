@@ -3,17 +3,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Platform, AppState } from "react-native";
 import { request, RESULTS, PERMISSIONS } from "react-native-permissions";
+import { useDispatch } from "react-redux";
+import { setContactGranted } from "store/slices/contactSlice";
 
 const useContactPermission = () => {
-  const [contactGranted, setContactGranted] = useState(false);
-  const [contactDenied, setContactDenied] = useState(false);
-
-  const appState = useRef(AppState.currentState);
+  const dispatch = useDispatch();
   const isIOS = Platform.OS === "ios";
-
-  useEffect(() => {
-    askContactPermissions();
-  }, []);
 
   const askContactPermissions = () => {
     const persmission = isIOS
@@ -23,16 +18,14 @@ const useContactPermission = () => {
       .then((result) => {
         console.log("Persimssion CONTACT Req : ", result);
         if (result === RESULTS.GRANTED) {
-          setContactGranted(true);
+          dispatch(setContactGranted(true));
           console.log("Persimssion CONTACT Req Successfully Grannted ");
         } else if (result === RESULTS.DENIED) {
           console.log("Persimssion CONTACT Denied ");
-          setContactDenied(true);
-          setContactGranted(false);
+          dispatch(setContactGranted(false));
         } else if (result === RESULTS.BLOCKED) {
           console.log("Persimssion CONTACT Blocked ");
-          setContactDenied(false);
-          setContactGranted(false);
+          dispatch(setContactGranted(false));
         }
       })
       .catch((err) => {
@@ -40,7 +33,7 @@ const useContactPermission = () => {
       });
   };
 
-  return { contactGranted, askContactPermissions };
+  return { askContactPermissions };
 };
 
 export default useContactPermission;

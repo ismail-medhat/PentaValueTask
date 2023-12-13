@@ -14,9 +14,10 @@ type ISplashScreenProps = {
 };
 
 const SplashScreen: React.FC<ISplashScreenProps> = ({ navigation }) => {
-  const { contactGranted } = useContactPermission();
+  const { askContactPermissions } = useContactPermission();
   const { t } = useTranslation();
   React.useEffect(() => {
+    askContactPermissions();
     setTimeout(() => {
       navigation.navigate(ScreenNames.Login);
     }, 1000);
