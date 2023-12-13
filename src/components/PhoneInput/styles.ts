@@ -17,4 +17,21 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: Fonts.medium,
   },
+  textContainerStyle: {
+    height: ScaleHeight(45),
+    borderTopRightRadius: ScaleHeight(10),
+    borderBottomRightRadius: ScaleHeight(10),
+    backgroundColor: Colors.lightGray,
+  },
+  codeTextStyle: {
+    fontSize: 15,
+    color: Colors.black,
+    height: ScaleHeight(45),
+    lineHeight: ScaleHeight(45),
+  },
+  textInputStyle: {
+    fontSize: 15,
+    color: Colors.black,
+    height: ScaleHeight(45),
+  },
 });

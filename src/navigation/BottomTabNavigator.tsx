@@ -20,6 +20,7 @@ const BottomTabNavigator: React.FC<ISBottomTabsProps> = ({ navigation }) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarHideOnKeyboard: true,
         tabBarLabel: ({ focused }) => {
           return (
             <View>

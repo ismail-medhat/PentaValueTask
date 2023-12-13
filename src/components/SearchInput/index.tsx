@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Pressable,
   StyleProp,
   Text,
   TextInput,
@@ -31,6 +32,12 @@ const SearchInput: React.FC<ISearchInputProps> = ({
   return (
     <View style={[styles.button, inputStyle]}>
       <AntDesign name={"search1"} size={22} />
+      {value.length > 0 && (
+        <Pressable onPress={() => setValue("")} style={styles.removeBtn}>
+          <AntDesign name={"close"} size={22} />
+        </Pressable>
+      )}
+
       <TextInput
         placeholder={placeholder}
         value={value}

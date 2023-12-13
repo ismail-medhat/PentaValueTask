@@ -26,4 +26,5 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily: Fonts.medium,
   },
+  removeBtn: { position: "absolute", right: 10, zIndex: 2 },
 });

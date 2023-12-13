@@ -35,16 +35,10 @@ const PhoneInput: React.FC<IPhoneInputProps> = ({
       onChangeFormattedText={(text) => {
         setFormattedValue(text);
       }}
-      withDarkTheme
       withShadow
-      textInputStyle={{ fontSize: 15, color: Colors.black }}
-      codeTextStyle={{ fontSize: 15, color: Colors.black }}
-      textContainerStyle={{
-        height: ScaleHeight(45),
-        borderTopRightRadius: ScaleHeight(10),
-        borderBottomRightRadius: ScaleHeight(10),
-        backgroundColor: Colors.lightGray,
-      }}
+      textInputStyle={styles.textInputStyle}
+      codeTextStyle={styles.codeTextStyle}
+      textContainerStyle={styles.textContainerStyle}
     />
   );
 };

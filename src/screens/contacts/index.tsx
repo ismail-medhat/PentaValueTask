@@ -21,6 +21,7 @@ import { Contact } from "types/ContactInterface";
 
 const ContactsScreen: React.FC = () => {
   const [selectedContacts, setSelectedContacts] = useState<Contact[]>([]);
+  const [filterContacts, setFilterContacts] = useState<Contact[]>([]);
   const [searchKey, setSearchKey] = useState<string>("");
   const { deviceContacts, favoriteContacts } = useSelector(
     (state: RootState) => state.contact
@@ -34,6 +35,20 @@ const ContactsScreen: React.FC = () => {
       fetchContacts();
     }
   }, [deviceContacts]);
+
+  useEffect(() => {
+    if (searchKey.length > 0) {
+      const contactsFilter = deviceContacts?.filter(
+        (contact: Contact) =>
+          contact?.displayName
+            ?.toLocaleLowerCase()
+            .includes(searchKey?.toLocaleLowerCase()) ||
+          contact?.phoneNumbers[0]?.number.includes(searchKey)
+      );
+      console.log("contactsFilter :: ", contactsFilter);
+      setFilterContacts(contactsFilter);
+    }
+  }, [searchKey]);
 
   const onLikeClick = (item: Contact) => {
     const findContactIndex = favoriteContacts?.findIndex(
@@ -171,7 +186,7 @@ const ContactsScreen: React.FC = () => {
         <>
           <SearchInput value={searchKey} setValue={setSearchKey} />
           <FlatList
-            data={deviceContacts}
+            data={searchKey.length == 0 ? deviceContacts : filterContacts}
             renderItem={renderContactItems}
             keyExtractor={(item, index) => item?.recordID}
             showsVerticalScrollIndicator={true}
