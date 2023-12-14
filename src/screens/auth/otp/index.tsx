@@ -9,6 +9,7 @@ import ScreenNames from "navigation/ScreenNames";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ParamListBase } from "@react-navigation/native";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import useToast from "hooks/useToast";
 
 type IOTPScreenProps = {
   navigation: StackNavigationProp<ParamListBase>;
@@ -17,7 +18,24 @@ type IOTPScreenProps = {
 
 const OTPScreen: React.FC<IOTPScreenProps> = ({ navigation, route }) => {
   const phoneNumber = route.params?.phoneNumber ?? "";
+  const confirm = route.params?.confirm ?? "";
   const [code, setCode] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const { showErrorToast, showSuccessToast } = useToast();
+
+  const confirmCode = async () => {
+    setLoading(true);
+    try {
+      await confirm.confirm(code);
+      navigation.navigate(ScreenNames.BottomTabs);
+      showSuccessToast("Verification code successfully");
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      showErrorToast("Please enter a valid OTP number");
+    }
+  };
+
   return (
     <ScreenContainer style={styles.container}>
       <KeyboardAwareScrollView
@@ -44,7 +62,8 @@ const OTPScreen: React.FC<IOTPScreenProps> = ({ navigation, route }) => {
             marginTop: ScaleHeight("5%"),
           }}
           title={"Confirm OTP Number"}
-          onPress={() => navigation.navigate(ScreenNames.BottomTabs)}
+          onPress={confirmCode}
+          loading={loading}
         />
       </KeyboardAwareScrollView>
     </ScreenContainer>

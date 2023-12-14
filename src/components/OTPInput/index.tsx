@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./styles";
 import { Colors } from "common";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
@@ -26,14 +26,22 @@ const OTPInput: React.FC<IOTPInputProps> = ({
   inputCodeStyle,
   inputCodeFieldStyle,
 }) => {
+  const otpInputRef = useRef(null);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      otpInputRef.current.focusField(0);
+    }, 100);
+    return () => clearTimeout(timeoutId);
+  }, []);
   return (
     <OTPInputView
       style={styles.inputView}
-      pinCount={4}
+      pinCount={6}
       code={code}
       keyboardType="number-pad"
       onCodeChanged={onCodeChanged}
       autoFocusOnLoad
+      ref={otpInputRef}
       codeInputFieldStyle={styles.codeInputFieldStyle}
       onCodeFilled={onCodeFilled}
     />

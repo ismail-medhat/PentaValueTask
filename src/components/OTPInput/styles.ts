@@ -4,7 +4,7 @@ import { Colors, Fonts, ScaleHeight, ScaleWidth } from "common";
 export const styles = StyleSheet.create({
   inputView: {
     marginTop: ScaleHeight(9),
-    width: ScaleWidth("80%"),
+    width: ScaleWidth("90%"),
     height: ScaleHeight(70),
     alignSelf: "center",
   },

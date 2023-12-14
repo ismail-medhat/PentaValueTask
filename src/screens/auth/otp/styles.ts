@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     color: Colors.gray,
     fontFamily: Fonts.medium,
   },
-  phoneTxt: { color: Colors.black, fontFamily: Fonts.bold },
+  phoneTxt: { color: Colors.black, fontFamily: Fonts.medium },
 });
 
 export default styles;
